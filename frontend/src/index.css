@@ -1,0 +1,473 @@
+:root {
+  --claf-navy: #003366;
+  --claf-navy-dark: #002244;
+  --claf-gold: #c5a059;
+  --claf-gold-light: #d4b76a;
+  --radius-btn: 12px;
+  --radius-card: 16px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --transition: all 0.2s ease;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* ─── Utility Classes ─────────────────────────── */
+.bg-navy { background-color: var(--claf-navy) !important; }
+.text-navy { color: var(--claf-navy) !important; }
+.text-gold { color: var(--claf-gold) !important; }
+
+/* ─── Button Overrides ────────────────────────── */
+.btn {
+  border-radius: var(--radius-btn) !important;
+  transition: var(--transition) !important;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md) !important;
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Card Overrides ──────────────────────────── */
+.card {
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: var(--transition);
+}
+.card:hover {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ─── Form Input Overrides ────────────────────── */
+.form-control, .form-select {
+  padding: 12px 16px !important;
+  border-radius: var(--radius-btn) !important;
+  border: 1.5px solid #e2e8f0 !important;
+  transition: var(--transition) !important;
+  font-size: 0.95rem !important;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--claf-gold) !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15) !important;
+  background-color: #fff !important;
+}
+
+/* ─── Table Row Hover ─────────────────────────── */
+.table-hover tbody tr {
+  transition: var(--transition);
+}
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 51, 102, 0.03) !important;
+}
+
+/* ─── Sidebar Styles ──────────────────────────── */
+.claf-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, var(--claf-navy) 0%, var(--claf-navy-dark) 100%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.claf-sidebar .nav-link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-btn);
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  border: none;
+  background: transparent;
+  text-align: left;
+  width: 100%;
+}
+.claf-sidebar .nav-link-item:hover {
+  color: #fff;
+  background-color: rgba(255,255,255,0.08);
+  transform: translateX(4px);
+}
+.claf-sidebar .nav-link-item.active {
+  background-color: var(--claf-gold) !important;
+  color: var(--claf-navy) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+}
+.claf-sidebar .nav-link-item.active:hover {
+  transform: none;
+}
+
+/* ─── Sidebar Logout ──────────────────────────── */
+.claf-sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.claf-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: rgba(220, 53, 69, 0.1);
+  color: #ff6b6b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.claf-logout-btn:hover {
+  background: rgba(220, 53, 69, 0.2);
+  transform: translateY(-1px);
+}
+
+/* ─── Empty State ─────────────────────────────── */
+.claf-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.claf-empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+.claf-empty-state .empty-title {
+  font-weight: 600;
+  color: var(--claf-navy);
+  margin-bottom: 4px;
+}
+.claf-empty-state .empty-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* ─── Badge Pill ──────────────────────────────── */
+.badge {
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+}
+
+/* ─── Link Hover Lift ─────────────────────────── */
+a.claf-lift {
+  transition: var(--transition);
+}
+a.claf-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── DARK MODE ───────────────────────────────── */
+[data-theme="dark"] {
+  --claf-bg: #0d1117;
+  --claf-card: #161b22;
+  --claf-text: #e6edf3;
+  --claf-text-muted: #8b949e;
+  --claf-border: #30363d;
+  --claf-input-bg: #21262d;
+  --claf-input-text: #e6edf3;
+  --claf-sidebar-bg: #001a33;
+  --claf-link: #d4b06a;
+  --claf-table-row-1: #161b22;
+  --claf-table-row-2: #1c2128;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--claf-bg) !important;
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: var(--claf-bg) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: var(--claf-card) !important;
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--claf-card) !important;
+  border-color: var(--claf-border) !important;
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--claf-input-bg) !important;
+  color: var(--claf-input-text) !important;
+  border-color: var(--claf-border) !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+  background-color: var(--claf-input-bg) !important;
+  color: var(--claf-input-text) !important;
+}
+
+[data-theme="dark"] .table {
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .table thead {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .table tbody tr:nth-child(odd) {
+  background-color: var(--claf-table-row-1) !important;
+}
+
+[data-theme="dark"] .table tbody tr:nth-child(even) {
+  background-color: var(--claf-table-row-2) !important;
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+  background-color: rgba(212, 176, 106, 0.1) !important;
+}
+
+[data-theme="dark"] .text-dark {
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--claf-text-muted) !important;
+}
+
+[data-theme="dark"] .text-navy {
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .text-gold {
+  color: var(--claf-link) !important;
+}
+
+[data-theme="dark"] a,
+[data-theme="dark"] .nav-link {
+  color: var(--claf-link) !important;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: var(--claf-card) !important;
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] .shadow-lg {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+}
+
+/* Sidebar dark mode */
+[data-theme="dark"] .claf-sidebar {
+  background: linear-gradient(180deg, var(--claf-sidebar-bg) 0%, #001122 100%) !important;
+}
+
+/* Badge opacity adjustment */
+[data-theme="dark"] .badge {
+  opacity: 0.9;
+}
+
+/* ─── Dark Mode: Typography & Labels ────────── */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] strong,
+[data-theme="dark"] b,
+[data-theme="dark"] label {
+  color: var(--claf-text) !important;
+}
+
+[data-theme="dark"] ::placeholder {
+  color: var(--claf-text-muted) !important;
+  opacity: 1;
+}
+
+[data-theme="dark"] .form-label,
+[data-theme="dark"] .small,
+[data-theme="dark"] small {
+  color: var(--claf-text-muted) !important;
+}
+
+/* ─── Dark Mode: Main content area ──────────── */
+[data-theme="dark"] .claf-main-content {
+  background-color: var(--claf-bg) !important;
+  color: var(--claf-text) !important;
+}
+
+/* ─── Dark Mode: Dropdown / Select options ─── */
+[data-theme="dark"] option {
+  background-color: var(--claf-input-bg);
+  color: var(--claf-input-text);
+}
+
+/* ─── Dark Mode: Table td text ──────────────── */
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th {
+  color: var(--claf-text) !important;
+  border-color: var(--claf-border) !important;
+}
+
+/* ─── Dark Mode: Alert / Banner ─────────────── */
+[data-theme="dark"] .alert {
+  background-color: var(--claf-card) !important;
+  border-color: var(--claf-border) !important;
+  color: var(--claf-text) !important;
+}
+
+/* ─── Dark Mode: Buttons inheriting bg-light ── */
+[data-theme="dark"] .btn-outline-secondary {
+  color: var(--claf-text) !important;
+  border-color: var(--claf-border) !important;
+}
+
+[data-theme="dark"] .bg-light.btn,
+[data-theme="dark"] .btn.bg-light {
+  background-color: var(--claf-card) !important;
+  color: var(--claf-text) !important;
+}
+
+/* ─── Theme Toggle Button ─────────────────────── */
+.claf-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+.claf-theme-toggle:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.1);
+}
+
+/* ─── Animation Keyframes ───────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes rotateWatermark {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes buttonPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes checkmarkPop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ─── Animation Classes ─────────────────────────── */
+.anim-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+.anim-slide-up { animation: slideUp 0.5s ease-out forwards; }
+.anim-slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
+.anim-slide-in-left { animation: slideInLeft 0.4s ease-out forwards; }
+.anim-float { animation: float 3s ease-in-out infinite; }
+.anim-shake { animation: shake 0.5s ease-in-out; }
+.anim-pulse { animation: pulse 1.5s ease-in-out infinite; }
+.anim-checkmark { animation: checkmarkPop 0.4s ease-out forwards; }
+
+/* ─── Link Underline Animation ─────────────────── */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease-out;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Input Focus Glow ─────────────────────────── */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--claf-gold) !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2) !important;
+}
+
+/* ─── Checkbox Animation ───────────────────────── */
+.form-check-input:checked {
+  background-color: var(--claf-navy);
+  border-color: var(--claf-navy);
+  transition: all 0.2s ease;
+}
+
+/* ─── Auth Page Responsive Styles ─────────────────── */
+@media (min-width: 768px) {
+  .auth-hero-panel {
+    display: block !important;
+  }
+}

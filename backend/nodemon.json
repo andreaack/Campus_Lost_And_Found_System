@@ -1,0 +1,7 @@
+{
+  "watch": ["*.js", "routes", "models", "middleware", "config", "swagger"],
+  "ext": "js,json",
+  "ignore": ["node_modules", "*.test.js", "*.spec.js", "*.md"],
+  "delay": "1000",
+  "signal": "SIGTERM"
+}
