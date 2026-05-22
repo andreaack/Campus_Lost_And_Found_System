@@ -12,8 +12,8 @@ const options = {
       },
     },
     servers: [
-      { url: 'http://localhost:5000/api/v1',      description: 'Development server'  },
-      { url: 'https://your-app.up.railway.app/api/v1', description: 'Production server' },
+      { url: 'http://localhost:5000/api/v1', description: 'Development server' },
+      { url: 'https://campus-lost-and-found-system-be.vercel.app/api/v1', description: 'Production server' },
     ],
 
     components: {
@@ -83,7 +83,7 @@ const options = {
     },
     security: [{ bearerAuth: [] }],  
   },
-  apis: [path.join(__dirname, '../routes/*.js')],  
+  apis: [path.join(__dirname, '..', 'routes', '*.js')],  
 };
 
 module.exports = swaggerJsdoc(options);

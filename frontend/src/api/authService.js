@@ -20,6 +20,24 @@ export const signupUser = async (userData) => {
     }
 };
 
+export const getMe = async () => {
+    try {
+        const { data } = await API.get('/auth/me');
+        return data;
+    } catch (error) {
+        throw error.response?.data || { message: "Failed to fetch user data." };
+    }
+};
+
+export const logout = async () => {
+    try {
+        const { data } = await API.post('/auth/logout');
+        return data;
+    } catch (error) {
+        throw error.response?.data || { message: "Logout failed." };
+    }
+};
+
 
 
 

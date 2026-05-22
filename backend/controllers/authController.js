@@ -8,7 +8,7 @@ const generateToken = (id) =>
 const generateRefreshToken = (id) =>
   jwt.sign({ id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
 
-// POST /api/v1/auth/register
+
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
   const existing = await User.findOne({ email });
@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
   });
 };
 
-// POST /api/v1/auth/login
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select('+passwordHash');
@@ -37,12 +37,11 @@ exports.login = async (req, res) => {
   res.json({ success: true, token: generateToken(user._id), data: { id: user._id, name: user.name, role: user.role } });
 };
 
-// GET /api/v1/auth/me
+
 exports.getMe = async (req, res) => {
   res.json({ success: true, data: req.user });
 };
 
-// POST /api/v1/auth/logout
 exports.logout = (req, res) => {
   res.clearCookie('refreshToken');
   res.json({ success: true, message: 'Logged out successfully' });

@@ -13,7 +13,7 @@ const { upload, uploadToCloudinary } = require('../config/cloudinary');
 
 /**
  * @swagger
- * /items:
+ * /api/v1/items:
  *   post:
  *     summary: Report a new lost or found item (with up to 3 images)
  *     tags: [Items]
@@ -65,7 +65,7 @@ router.post('/', protect, upload.array('images', 3), async (req, res) => {
 });
 /**
  * @swagger
- * /items:
+ * /api/v1/items:
  *   get:
  *     summary: Get all approved items (paginated)
  *     tags: [Items]
@@ -109,7 +109,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /items/search:
+ * /api/v1/items/search:
  *   get:
  *     summary: Search items by keyword (uses MongoDB text index)
  *     tags: [Items]
@@ -147,7 +147,7 @@ router.get('/search', async (req, res) => {
 
 /**
  * @swagger
- * /items/filter:
+ * /api/v1/items/filter:
  *   get:
  *     summary: Filter items by type, category, location, status, and date range
  *     tags: [Items]
@@ -196,7 +196,7 @@ router.get('/filter', async (req, res) => {
 
 /**
  * @swagger
- * /items/{id}:
+ * /api/v1/items/{id}:
  *   get:
  *     summary: Get single item by ID
  *     tags: [Items]
@@ -222,7 +222,7 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /items/{id}:
+ * /api/v1/items/{id}:
  *   put:
  *     summary: Update an item (owner or admin)
  *     tags: [Items]
@@ -260,7 +260,7 @@ router.put('/:id', protect, async (req, res) => {
 
 /**
  * @swagger
- * /items/{id}:
+ * /api/v1/items/{id}:
  *   delete:
  *     summary: Delete an item (owner or admin)
  *     tags: [Items]
@@ -289,7 +289,7 @@ router.delete('/:id', protect, async (req, res) => {
 
 /**
  * @swagger
- * /items/{id}/mark-recovered:
+ * /api/v1/items/{id}/mark-recovered:
  *   put:
  *     summary: Mark item as recovered/returned
  *     tags: [Items]

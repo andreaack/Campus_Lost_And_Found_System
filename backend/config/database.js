@@ -20,7 +20,7 @@ const connectDB = async () => {
 
     if (error.message.includes('EBADNAME') || error.message.includes('querySrv')) {
       console.error('[DB] ⚠ SRV lookup failed. Your network may block DNS SRV records (common on campus/corporate networks).');
-      console.error('[DB] FIX: Switch from mongodb+srv:// to the standard connection string (mongodb://) in your .env.');
+      console.error('[DB] FIX: Switch from mongodb+srv:// to mongodb:// in your connection string.');
     }
 
     if (error.message.includes('IP') || error.message.includes('whitelist') || error.message.includes('not whitelisted')) {

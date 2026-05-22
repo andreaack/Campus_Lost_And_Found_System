@@ -80,7 +80,7 @@ exports.rejectClaim = async (req, res) => {
   res.json({ success: true, data: claim });
 };
 
-// DELETE /api/v1/claims/:id
+
 exports.deleteClaim = async (req, res) => {
   const claim = await Claim.findById(req.params.id);
   if (!claim) return res.status(404).json({ success: false, error: { code: 'NOT_FOUND' } });

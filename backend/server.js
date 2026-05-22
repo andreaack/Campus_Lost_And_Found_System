@@ -1,4 +1,4 @@
-require('express-async-errors');  // MUST be first require
+require('express-async-errors'); 
 require('dotenv').config();
 
 const express      = require('express');
@@ -20,61 +20,59 @@ const claimRoutes  = require('./routes/claims');
 
 const app = express();
 
-// ─── CORS & Parsers (MUST be before any routes) ─────────────
-app.use(cors({
-  origin:      process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ─── Security Middleware ───────────────────────────────────
-app.use(helmet());
-
-// Connect to MongoDB
-connectDB();
-
-// Rate limiting: 100 requests per 15 minutes per IP
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
-app.use('/api/', limiter);
-
-// Stricter rate limit on auth: 10 attempts per 15 min
-const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
-app.use('/api/v1/auth/login', authLimiter);
-
-// ─── Logging ──────────────────────────────────────────────
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
-
-// ─── Swagger Docs ─────────────────────────────────────────
+=
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customSiteTitle: 'Campus LAF API',
   swaggerOptions: { persistAuthorization: true, displayRequestDuration: true },
 }));
 
-// ─── Health Check ─────────────────────────────────────────
+app.use(helmet({
+  contentSecurityPolicy: false, 
+}));
+
+connectDB();
+
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
+app.use('/api/', limiter);
+
+// Skip rate limiting for Swagger UI
+app.use('/api-docs', (req, res, next) => next());
+
+const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
+app.use('/api/v1/auth/login', authLimiter);
+
+
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+
 app.get('/', (req, res) => res.send('API is Online'));
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', env: process.env.NODE_ENV, timestamp: new Date().toISOString() });
 });
 
-// ─── API Routes ───────────────────────────────────────────
+
+app.get('/api-docs.json', (req, res) => {
+  res.json(swaggerSpec);
+});
+
+
 app.use('/api/v1/auth',   authRoutes);
 app.use('/api/v1/users',  userRoutes);
 app.use('/api/v1/items',  itemRoutes);
 app.use('/api/v1/claims', claimRoutes);
 
-// 404 handler for unmatched routes
 app.use((req, res) => {
   res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: `Route ${req.originalUrl} not found` } });
 });
 
-// ─── Global Error Handler (MUST be last) ─────────────────
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-// Graceful port conflict handling
 const startServer = (port) => {
   const portNum = parseInt(port, 10);
   const server = app.listen(portNum, () => {
@@ -94,7 +92,7 @@ const startServer = (port) => {
 
 const server = startServer(PORT);
 
-// Handle unhandled promise rejections gracefully
+
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled rejection:', err.message);
   server.close(() => process.exit(1));

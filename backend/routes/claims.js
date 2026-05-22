@@ -13,7 +13,7 @@ const { protect, adminOnly } = require('../middleware/auth');
 
 /**
  * @swagger
- * /claims:
+ * /api/v1/claims:
  *   post:
  *     summary: Submit a claim with verification answers
  *     tags: [Claims]
@@ -84,7 +84,7 @@ router.get('/', protect, adminOnly, async (req, res) => {
 
 /**
  * @swagger
- * /claims/user/{userId}:
+ * /api/v1/claims/user/{userId}:
  *   get:
  *     summary: Get all claims submitted by a specific user
  *     tags: [Claims]
@@ -109,7 +109,7 @@ router.get('/user/:userId', protect, async (req, res) => {
 
 /**
  * @swagger
- * /claims/item/{itemId}:
+ * /api/v1/claims/item/{itemId}:
  *   get:
  *     summary: Get all claims for a specific item
  *     tags: [Claims]
@@ -134,7 +134,7 @@ router.get('/item/:itemId', async (req, res) => {
 
 /**
  * @swagger
- * /claims/{id}:
+ * /api/v1/claims/{id}:
  *   get:
  *     summary: Get a single claim by ID
  *     tags: [Claims]
@@ -185,7 +185,7 @@ router.delete('/:id', protect, async (req, res) => {
 
 /**
  * @swagger
- * /claims/{id}/approve:
+ * /api/v1/claims/{id}/approve:
  *   put:
  *     summary: Approve a claim and mark item as recovered (admin only)
  *     tags: [Claims]
@@ -226,7 +226,7 @@ router.put('/:id/approve', protect, adminOnly, async (req, res) => {
 
 /**
  * @swagger
- * /claims/{id}/reject:
+ * /api/v1/claims/{id}/reject:
  *   put:
  *     summary: Reject a claim (admin only)
  *     tags: [Claims]

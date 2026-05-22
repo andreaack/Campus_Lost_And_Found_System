@@ -47,7 +47,7 @@ const itemSchema = new mongoose.Schema(
     },
     imageUrls: [
       {
-        type: String, // Cloudinary URLs (max 3)
+        type: String, 
       },
     ],
     dateLostFound: {
@@ -58,18 +58,18 @@ const itemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Indexes for performance optimization
 
-// Compound index for filtering by status and category (dashboard filters)
+
+
 itemSchema.index({ status: 1, category: 1 });
 
-// Index for sorting by date (recent items first)
+
 itemSchema.index({ dateLostFound: -1 });
 
-// Index for "My Items" page (find items by the user who reported them)
+
 itemSchema.index({ reportedBy: 1 });
 
-// Text index for keyword search (name, description, location)
+
 itemSchema.index({ name: 'text', description: 'text', location: 'text' });
 
 module.exports = mongoose.model('Item', itemSchema);

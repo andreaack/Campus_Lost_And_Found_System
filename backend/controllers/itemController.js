@@ -1,5 +1,5 @@
 const Item = require('../models/Item');
-// POST /api/v1/items  — Report a new item
+
 exports.createItem = async (req, res) => {
   const imageUrls = req.files ? req.files.map(f => f.path) : [];
   const item = await Item.create({
@@ -9,7 +9,7 @@ exports.createItem = async (req, res) => {
   });
   res.status(201).json({ success: true, data: item });
 };
-// GET /api/v1/items  — List all approved items (paginated)
+
 exports.getItems = async (req, res) => {
   const page  = parseInt(req.query.page)  || 1;
   const limit = parseInt(req.query.limit) || 50;
@@ -23,13 +23,13 @@ exports.getItems = async (req, res) => {
   const total = await Item.countDocuments({ status: 'approved' });
   res.json({ success: true, count: items.length, total, page, pages: Math.ceil(total / limit), data: items });
 };
-// GET /api/v1/items/:id
+
 exports.getItem = async (req, res) => {
   const item = await Item.findById(req.params.id).populate('reportedBy', 'name email');
   if (!item) return res.status(404).json({ success: false, error: { code: 'NOT_FOUND' } });
   res.json({ success: true, data: item });
 };
-// PUT /api/v1/items/:id
+
 exports.updateItem = async (req, res) => {
   let item = await Item.findById(req.params.id);
   if (!item) return res.status(404).json({ success: false, error: { code: 'NOT_FOUND' } });
@@ -40,7 +40,7 @@ exports.updateItem = async (req, res) => {
   res.json({ success: true, data: item });
 };
 
-// DELETE /api/v1/items/:id
+
 exports.deleteItem = async (req, res) => {
   const item = await Item.findById(req.params.id);
   if (!item) return res.status(404).json({ success: false, error: { code: 'NOT_FOUND' } });
@@ -49,14 +49,14 @@ exports.deleteItem = async (req, res) => {
   await item.deleteOne();
   res.json({ success: true, data: {} });
 };
-// PUT /api/v1/items/:id/mark-recovered
+
 exports.markRecovered = async (req, res) => {
   const item = await Item.findByIdAndUpdate(req.params.id, { status: 'recovered' }, { new: true });
   if (!item) return res.status(404).json({ success: false, error: { code: 'NOT_FOUND' } });
   res.json({ success: true, data: item });
 };
 
-// GET /api/v1/items/search?q=laptop
+
 exports.searchItems = async (req, res) => {
   const { q } = req.query;
   if (!q) return res.status(400).json({ success: false, error: { code: 'MISSING_QUERY' } });
@@ -69,7 +69,7 @@ exports.searchItems = async (req, res) => {
   res.json({ success: true, count: items.length, data: items });
 };
 
-// GET /api/v1/items/filter?type=lost&category=electronics&status=approved
+
 exports.filterItems = async (req, res) => {
   const { type, category, location, status, dateFrom, dateTo } = req.query;
   const query = {};
@@ -88,7 +88,7 @@ exports.filterItems = async (req, res) => {
   res.json({ success: true, count: items.length, data: items });
 };
 
-// GET /api/v1/items/admin/all — Get all items for admin (including pending)
+
 exports.getAllItemsForAdmin = async (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ success: false, error: { code: 'FORBIDDEN' } });
@@ -100,7 +100,7 @@ exports.getAllItemsForAdmin = async (req, res) => {
   res.json({ success: true, count: items.length, data: items });
 };
 
-// PATCH /api/v1/items/:id/status — Update item status (approve/reject)
+
 exports.updateItemStatus = async (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ success: false, error: { code: 'FORBIDDEN' } });

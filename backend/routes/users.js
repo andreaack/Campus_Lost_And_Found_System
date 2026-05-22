@@ -12,7 +12,7 @@ const { protect, adminOnly } = require('../middleware/auth');
 
 /**
  * @swagger
- * /users:
+ * /api/v1/users:
  *   get:
  *     summary: Get all users (admin only)
  *     tags: [Users]
@@ -40,7 +40,7 @@ router.get('/', protect, adminOnly, async (req, res) => {
 
 /**
  * @swagger
- * /users/{id}:
+ * /api/v1/users/{id}:
  *   get:
  *     summary: Get a single user profile
  *     tags: [Users]

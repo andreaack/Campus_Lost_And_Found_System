@@ -50,15 +50,6 @@ export const getMyItems = async () => {
     }
 };
 
-export const getMyActivity = async () => {
-    try {
-        const { data } = await API.get('/items/my-activity');
-        return data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch activities." };
-    }
-};
-
 export const getAllItems = async () => {
     try {
         const { data } = await API.get('/items');

@@ -14,7 +14,7 @@ const { protect } = require('../middleware/auth');
 
 /**
  * @swagger
- * /auth/register:
+ * /api/v1/auth/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Authentication]
@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
 
 /**
  * @swagger
- * /auth/login:
+ * /api/v1/auth/login:
  *   post:
  *     summary: Login and receive access token
  *     tags: [Authentication]
@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
 
 /**
  * @swagger
- * /auth/me:
+ * /api/v1/auth/me:
  *   get:
  *     summary: Get currently authenticated user
  *     tags: [Authentication]
@@ -108,7 +108,7 @@ router.get('/me', protect, async (req, res) => {
 
 /**
  * @swagger
- * /auth/logout:
+ * /api/v1/auth/logout:
  *   post:
  *     summary: Logout and clear refresh token cookie
  *     tags: [Authentication]
