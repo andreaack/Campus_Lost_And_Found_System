@@ -1,19 +1,42 @@
 const mongoose = require('mongoose');
 
+// Cache connection for serverless (Vercel)
+let cached = global.mongoose || { conn: null, promise: null };
+
+if (!global.mongoose) {
+  global.mongoose = cached;
+}
+
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI;
 
   if (!uri) {
     console.error('[DB] MONGODB_URI is not defined in .env');
-    process.exit(1);
+    return;
+  }
+
+  // Return cached connection if available
+  if (cached.conn) {
+    console.log('[DB] Using cached MongoDB connection');
+    return cached.conn;
+  }
+
+  // Create new connection if not cached
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 10000,
+      bufferCommands: false,
+    }).then((conn) => {
+      console.log(`[DB] MongoDB Connected: ${conn.connection.host}`);
+      return conn;
+    });
   }
 
   try {
-    const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 10000,
-    });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    cached.conn = await cached.promise;
+    return cached.conn;
   } catch (error) {
+    cached.promise = null;
     console.error('[DB] MongoDB connection FAILED.');
     console.error('[DB] Error name:', error.name);
     console.error('[DB] Error message:', error.message);
@@ -33,7 +56,7 @@ const connectDB = async () => {
       console.error('[DB] Possible causes: firewall blocking port 27017, wrong credentials, or Atlas cluster is paused.');
     }
 
-    process.exit(1);
+    throw error;
   }
 };
 
