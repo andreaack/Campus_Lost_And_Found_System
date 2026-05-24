@@ -1,25 +1,44 @@
-<img width="1820" height="907" alt="image" src="https://github.com/user-attachments/assets/61e7c6f6-0e55-43f1-9db2-3516138db4e9" />
 
-## Campus Lost & Found System
+# Campus Lost & Found System
 
-Features
+A full‑stack web application for reporting and recovering lost items on campus.  
 
-- Student / admin registration & login
+
+**Live API:** [campus-lost-and-found-system-be.vercel.app](https://campus-lost-and-found-system-be.vercel.app)  
+**Swagger Docs:** [campus-lost-and-found-system-be.vercel.app/api-docs](https://campus-lost-and-found-system-be.vercel.app/api-docs)
+
+![Dashboard Screenshot](https://github.com/user-attachments/assets/61e7c6f6-0e55-43f1-9db2-3516138db4e9)
+
+
+
+#### Features
+
+- Student / admin registration & login (JWT, 30‑min session)
 - Report lost or found items with up to 3 images (Cloudinary)
 - Full‑text keyword search & multi‑field filters
 - Claim submission with verification questions
 - Admin panel – manage users, approve/reject claims, view statistics
-- Swagger API documentation
+- Dark / light mode toggle
+- Interactive Swagger API documentation
 - Deployed on Vercel with MongoDB Atlas
 
+![Landing Page Screenshot](https://github.com/user-attachments/assets/8d71e2dc-cb6c-43e4-9499-eccc06729ab5)
 
 
-<img width="1816" height="906" alt="image" src="https://github.com/user-attachments/assets/8d71e2dc-cb6c-43e4-9499-eccc06729ab5" />
+### Stack Used:
+
+| Layer       | Technology |
+|-------------|------------|
+| Frontend    | React (Vite), React Router, Chart.js |
+| Backend     | Node.js, Express, Mongoose, JWT, bcryptjs |
+| Database    | MongoDB Atlas |
+| File Storage| Cloudinary |
+| Docs        | Swagger (OpenAPI 3.0) |
+| Deployment  | Vercel |
 
 
 
-
-## Quick Start
+#### Quick Start
 
 ### Backend
 ```bash
@@ -41,7 +60,8 @@ npm run dev
 
 > **Important for Vercel:** Set these in the project's **Environment Variables** dashboard. The `MONGODB_URI` password must be URL‑encoded if it contains special characters.
 
-<img width="1814" height="912" alt="image" src="https://github.com/user-attachments/assets/8f2b9c35-442e-4faa-ac97-5d8d2217d082" />
+![Item Detail Screenshot](https://github.com/user-attachments/assets/8f2b9c35-442e-4faa-ac97-5d8d2217d082)
+
 
 ## API Reference
 
@@ -53,59 +73,65 @@ npm run dev
 | Method | Path | Auth | Purpose |
 |---|---|---|---|
 | GET | `/` | — | API status |
-| GET | `/health` | — | DB connection status + diagnostics |
+| GET | `/health` | — | Database connection status |
 | GET | `/db-debug` | — | Direct MongoDB ping test |
 | GET | `/api-docs` | — | Swagger UI |
-| GET | `/api-docs.json` | — | Swagger spec |
 
 ### Authentication (`/api/v1/auth`)
 
-| Method | Path | Auth | Purpose |
+| Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/register` | — | Sign up (returns `token`, `user`) |
-| POST | `/login` | — | Sign in (returns `token`, `user`) |
-| GET | `/me` | Bearer | Get current user |
-| POST | `/logout` | — | Logout |
+| POST | `/register` | — | Register new user (student/admin) |
+| POST | `/login` | — | Login user |
+| GET | `/me` | Bearer | Get current user info |
+| POST | `/logout` | — | Logout user |
 
 ### Users (`/api/v1/users`)
 
-| Method | Path | Auth | Purpose |
+| Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/` | Admin | List all users |
-| GET | `/:id` | Bearer | Get user by ID |
-| PUT | `/:id` | Bearer (self or admin) | Update user |
-| DELETE | `/:id` | Admin | Delete user |
+| GET | `/` | Admin | Get all users |
+| GET | `/{id}` | Bearer | Get single user profile |
+| PUT | `/{id}` | Bearer | Update user profile |
+| DELETE | `/{id}` | Admin | Delete user |
 
 ### Items (`/api/v1/items`)
 
-| Method | Path | Auth | Purpose |
+| Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/` | Bearer | Report new item (multipart, up to 3 images) |
-| GET | `/` | — | List approved items (paginated) |
-| GET | `/mine` | Bearer | Items reported by current user |
-| GET | `/search?q=...` | — | Text search (with optional `category`, `location`) |
-| GET | `/filter?...` | — | Filter by `type`, `category`, `location`, `status`, `dateFrom`, `dateTo` |
-| GET | `/:id` | — | Item detail |
-| PUT | `/:id` | Bearer (owner) | Update item |
-| DELETE | `/:id` | Bearer (owner) | Delete item |
-| PUT | `/:id/mark-recovered` | Bearer | Mark item recovered |
-| GET | `/admin/all` | Admin | All items (incl. pending) |
-| PATCH | `/:id/status` | Admin | Approve/reject item |
+| POST | `/` | Bearer | Report a new item (multipart, up to 3 images) |
+| GET | `/` | — | Get all approved items (paginated) |
+| GET | `/search?q=...` | — | Search items by keyword |
+| GET | `/filter?type=lost&category=electronics&...` | — | Filter items by type, location, date, status |
+| GET | `/{id}` | — | Get single item details |
+| PUT | `/{id}` | Bearer | Update an item |
+| DELETE | `/{id}` | Bearer | Delete an item |
+| PUT | `/{id}/mark-recovered` | Bearer | Mark item as recovered/returned |
 
 ### Claims (`/api/v1/claims`)
 
-| Method | Path | Auth | Purpose |
+| Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/` | Bearer | Submit claim |
-| GET | `/` | Admin | List all claims |
-| GET | `/user/:userId` | Bearer | Claims by user |
-| GET | `/item/:itemId` | — | Claims on an item |
-| GET | `/:id` | Bearer | Get claim by ID |
-| DELETE | `/:id` | Bearer (owner) | Delete claim |
-| PUT | `/:id/approve` | Admin | Approve claim |
-| PUT | `/:id/reject` | Admin | Reject claim |
+| POST | `/` | Bearer | Submit claim on an item |
+| GET | `/` | Admin | Get all claims |
+| GET | `/user/{userId}` | Bearer | Get claims by user |
+| GET | `/item/{itemId}` | — | Get claims for specific item |
+| GET | `/{id}` | Bearer | Get single claim details |
+| PUT | `/{id}/approve` | Admin | Approve claim |
+| PUT | `/{id}/reject` | Admin | Reject claim |
+| DELETE | `/{id}` | Bearer | Delete claim |
+
+### Rate Limits
+
+| Scope | Limit |
+|---|---|
+| All `/api/*` routes | 100 requests / 15 minutes per IP |
+| `/api/v1/auth/login` | 10 requests / 15 minutes per IP |
+
+> **Note:** Every `/api/v1/*` endpoint runs through a database‑guard middleware. If MongoDB is disconnected, you will receive HTTP 503 `{ "code": "DB_NOT_READY" }`. This is why login/signup/items may fail when the database is unreachable.
 
 
+<img width="1671" height="868" alt="image" src="https://github.com/user-attachments/assets/a5ae81dc-6b8d-43dc-8ba8-f577f1f4a090" />
 
 ## Deployment Notes
 
@@ -114,9 +140,8 @@ npm run dev
 - Rate‑limiting is configured; the `trust proxy` setting is enabled for Vercel's infrastructure.
 - For production, set `FRONTEND_URL` to your deployed frontend URL to enable CORS.
 
-
+---
 
 ## License
 
-This project was developed for academic purposes .
-
+This project was developed for academic purposes.
