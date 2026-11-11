@@ -1,13 +1,18 @@
 
 # Campus Lost & Found System
 
-A full‑stack web application for reporting and recovering lost items on campus.  
+> A full‑stack web application for reporting and recovering lost items on campus.  
 
-**View here:** https://campus-lost-and-found-system-fe.vercel.app/
+<br>
+
+**View here:** https://campus-lost-and-found-system-fe.vercel.app
+<br>
 **Live API:** [campus-lost-and-found-system-be.vercel.app](https://campus-lost-and-found-system-be.vercel.app)  
 **Swagger Docs:** [campus-lost-and-found-system-be.vercel.app/api-docs](https://campus-lost-and-found-system-be.vercel.app/api-docs)
 
 <img width="1280" height="720" alt="Tandaan!" src="https://github.com/user-attachments/assets/9c7e2f17-2e70-451e-a434-ef0dd6a03603" />
+
+<br>
 
 
 #### Features
@@ -20,8 +25,6 @@ A full‑stack web application for reporting and recovering lost items on campus
 - Dark / light mode toggle
 - Interactive Swagger API documentation
 - Deployed on Vercel with MongoDB Atlas
-
-![Landing Page Screenshot](https://github.com/user-attachments/assets/8d71e2dc-cb6c-43e4-9499-eccc06729ab5)
 
 
 ### Stack Used:
@@ -58,9 +61,6 @@ npm run dev
 `MONGODB_URI`, `JWT_SECRET`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `FRONTEND_URL`, `NODE_ENV`.
 
 > **Important for Vercel:** Set these in the project's **Environment Variables** dashboard. The `MONGODB_URI` password must be URL‑encoded if it contains special characters.
-
-![Item Detail Screenshot](https://github.com/user-attachments/assets/8f2b9c35-442e-4faa-ac97-5d8d2217d082)
-
 
 ## API Reference
 
@@ -129,15 +129,6 @@ npm run dev
 
 > **Note:** Every `/api/v1/*` endpoint runs through a database‑guard middleware. If MongoDB is disconnected, you will receive HTTP 503 `{ "code": "DB_NOT_READY" }`. This is why login/signup/items may fail when the database is unreachable.
 
-
-<img width="1671" height="868" alt="image" src="https://github.com/user-attachments/assets/a5ae81dc-6b8d-43dc-8ba8-f577f1f4a090" />
-
-## Deployment Notes
-
-- The backend is deployed on **Vercel** as a serverless function. The database connection is cached globally to improve cold starts.
-- The health endpoint (`/health`) reports database connectivity (`db: connected` / `disconnected`).
-- Rate‑limiting is configured; the `trust proxy` setting is enabled for Vercel's infrastructure.
-- For production, set `FRONTEND_URL` to your deployed frontend URL to enable CORS.
 
 ---
 
