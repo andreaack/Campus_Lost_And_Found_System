@@ -3,12 +3,11 @@
 
 A full‑stack web application for reporting and recovering lost items on campus.  
 
-
+**View here:** https://campus-lost-and-found-system-fe.vercel.app/
 **Live API:** [campus-lost-and-found-system-be.vercel.app](https://campus-lost-and-found-system-be.vercel.app)  
 **Swagger Docs:** [campus-lost-and-found-system-be.vercel.app/api-docs](https://campus-lost-and-found-system-be.vercel.app/api-docs)
 
-![Dashboard Screenshot](https://github.com/user-attachments/assets/61e7c6f6-0e55-43f1-9db2-3516138db4e9)
-
+<img width="1280" height="720" alt="Tandaan!" src="https://github.com/user-attachments/assets/9c7e2f17-2e70-451e-a434-ef0dd6a03603" />
 
 
 #### Features
